@@ -1,5 +1,3 @@
-
-
 const LoginPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 flex items-center justify-center">
@@ -47,11 +45,11 @@ const LoginPage = () => {
 
         {/* Footer */}
         <div className="mt-6 text-center text-gray-600">
-          <p>Don't have an account? <a href="#" className="text-blue-600 hover:underline">Sign up</a></p>
+          <p>Don&apos;t have an account? <a href="#" className="text-blue-600 hover:underline">Sign up</a></p>
         </div>
       </div>
     </div>
   );
 };
 
-export default LoginPage;  // This is correct!
+export default LoginPage;
