@@ -42,11 +42,6 @@ const LoginPage = () => {
             </button>
           </div>
         </form>
-
-        {/* Footer */}
-        <div className="mt-6 text-center text-gray-600">
-          <p>Don&apos;t have an account? <a href="#" className="text-blue-600 hover:underline">Sign up</a></p>
-        </div>
       </div>
     </div>
   );
