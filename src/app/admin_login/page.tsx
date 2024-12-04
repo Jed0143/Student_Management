@@ -36,14 +36,19 @@ const AdminLogin = () => {
           </div>
 
           {/* Submit Button */}
-          <button
+          {/* <button
             type="submit"
             className="w-full py-3 px-6 bg-teal-600 text-white rounded-lg shadow-md hover:bg-teal-700 transition duration-300 ease-in-out transform hover:scale-105"
           >
             Login
-          </button>
+          </button> */}
         </form>
-
+        <a
+  href="/dashboard"
+  className="w-full py-3 px-6 mt-10 bg-teal-600 text-white rounded-lg shadow-md hover:bg-teal-700 transition duration-300 ease-in-out transform hover:scale-105 block text-center"
+>
+  Login
+</a>
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600">
             Forgot your password?{' '}
