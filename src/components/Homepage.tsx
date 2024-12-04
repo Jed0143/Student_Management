@@ -30,7 +30,7 @@ const Homepage = () => {
                     </p>
                     <div className="flex flex-col items-center gap-6 mb-16">
                         {/* Login Button */}
-                        <Link href="/choose">
+                        <Link href="/choice">
                             <button className="w-full py-3 px-6 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition duration-300 ease-in-out transform hover:scale-105">
                                 Login
                             </button>
