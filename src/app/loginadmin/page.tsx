@@ -1,4 +1,4 @@
-// File: pages/loginadmin.js
+
 
 const LoginPage = () => {
   return (

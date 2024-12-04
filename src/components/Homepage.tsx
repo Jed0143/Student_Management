@@ -1,16 +1,20 @@
 import React from 'react';
-import Link from 'next/link';  // Correct import for Next.js
+import Link from 'next/link';
+import Image from 'next/image';  // Importing the Image component from next/image
 
 const Homepage = () => {
     return (
         <div className="flex justify-center items-center min-h-screen bg-white">
             <div className="flex flex-col lg:flex-row items-center w-full max-w-7xl px-6 py-8 gap-8 lg:gap-16">
                 {/* Left Side: Image */}
-                <div className="w-full lg:w-1/2 mb-8 lg:mb-0">
-                    <img 
-                        src="/students.svg" 
-                        alt="students" 
-                        className="w-full h-auto rounded-lg object-cover" 
+                <div className="w-full lg:w-1/2 mb-8 lg:mb-0 relative">
+                    <Image
+                        src="/students.svg"
+                        alt="students"
+                        layout="responsive"  // Makes the image responsive
+                        width={500}          // Define the natural width of the image
+                        height={300}         // Define the natural height of the image
+                        className="rounded-lg object-cover"
                     />
                 </div>
 
