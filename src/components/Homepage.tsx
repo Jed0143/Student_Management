@@ -9,7 +9,7 @@ const Homepage = () => {
                 {/* Left Side: Image */}
                 <div className="w-full lg:w-1/2 mb-8 lg:mb-0 relative">
                     <Image
-                        src="/students.svg"
+                        src="/mira.jpg"
                         alt="students"
                         layout="responsive"  // Makes the image responsive
                         width={500}          // Define the natural width of the image
@@ -45,7 +45,7 @@ const Homepage = () => {
 
                         {/* Sign Up Link */}
                         <p className="text-sm text-gray-600 mt-6">
-                            Don't have an account?{' '}
+                            Don&apos;t have an account?{' '}
                             <Link href="/Adminregister">
                                 <span className="text-purple-600 font-semibold hover:text-purple-700">
                                     Sign up
