@@ -9,7 +9,7 @@ const Homepage = () => {
                 {/* Left Side: Image */}
                 <div className="w-full lg:w-1/2 mb-8 lg:mb-0 relative">
                     <Image
-                        src="/mira.jpg"
+                        src="/students.svg"
                         alt="students"
                         layout="responsive"  // Makes the image responsive
                         width={500}          // Define the natural width of the image
@@ -28,30 +28,14 @@ const Homepage = () => {
                         Seamlessly track attendance, assess performance, and provide feedback.
                         Access records, view marks, and communicate effortlessly.
                     </p>
-                    <div className="flex flex-col items-center gap-6">
+                    <div className="flex flex-col items-center gap-6 mb-16">
                         {/* Login Button */}
                         <Link href="/choose">
                             <button className="w-full py-3 px-6 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition duration-300 ease-in-out transform hover:scale-105">
                                 Login
                             </button>
                         </Link>
-                    
-                        {/* Login as Guest Button */}
-                        <Link href="/chooseasguest">
-                            <button className="w-full py-3 px-6 border-2 border-purple-600 text-purple-600 rounded-lg shadow-md hover:bg-purple-50 transition duration-300 ease-in-out transform hover:scale-105">
-                                Login as Guest
-                            </button>
-                        </Link>
-
-                        {/* Sign Up Link */}
-                        <p className="text-sm text-gray-600 mt-6">
-                            Don&apos;t have an account?{' '}
-                            <Link href="/Adminregister">
-                                <span className="text-purple-600 font-semibold hover:text-purple-700">
-                                    Sign up
-                                </span>
-                            </Link>
-                        </p>
+                      
                     </div>
                 </div>
             </div>
