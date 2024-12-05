@@ -1,7 +1,16 @@
-// pages/student.js
-import React from 'react';
+import React from "react";
+import { useRouter } from "next/router";
 
 const StudentLogin = () => {
+  const router = useRouter();
+
+  // Corrected handleLogin function
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Add authentication logic here
+    router.push("/dashboard"); // Redirect to dashboard
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-indigo-600">
       <div className="flex flex-col items-center w-full max-w-md px-8 py-12 bg-white rounded-lg shadow-lg">
@@ -10,9 +19,11 @@ const StudentLogin = () => {
         </h1>
 
         {/* Login Form */}
-        <form className="w-full space-y-6">
+        <form className="w-full space-y-6" onSubmit={handleLogin}>
           <div>
-            <label htmlFor="email" className="block text-lg font-medium text-gray-700">Email</label>
+            <label htmlFor="email" className="block text-lg font-medium text-gray-700">
+              Email
+            </label>
             <input
               type="email"
               id="email"
@@ -24,7 +35,9 @@ const StudentLogin = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-lg font-medium text-gray-700">Password</label>
+            <label htmlFor="password" className="block text-lg font-medium text-gray-700">
+              Password
+            </label>
             <input
               type="password"
               id="password"
@@ -46,7 +59,7 @@ const StudentLogin = () => {
 
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600">
-            Forgot your password?{' '}
+            Forgot your password?{" "}
             <a href="#" className="text-blue-600 hover:text-blue-700">
               Reset it here
             </a>
