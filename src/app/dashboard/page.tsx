@@ -11,7 +11,7 @@ const Dashboard = () => {
       <div className="flex-1 p-6 bg-gray-100">
         {/* Header */}
         <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-blue-900">Admin Dashboard</h1>
+          <h1 className="text-4xl font-bold text-green-900">Admin Dashboard</h1>
           <p className="mt-2 text-lg text-gray-600">Overview of important information and quick access to key functionalities</p>
         </header>
 
