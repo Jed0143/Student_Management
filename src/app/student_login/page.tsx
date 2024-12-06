@@ -1,25 +1,15 @@
-import React from "react";
-import { useRouter } from "next/router";
+import React from 'react';
 
 const StudentLogin = () => {
-  const router = useRouter();
-
-  // Corrected handleLogin function
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add authentication logic here
-    router.push("/dashboard"); // Redirect to dashboard
-  };
-
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-indigo-600">
-      <div className="flex flex-col items-center w-full max-w-md px-8 py-12 bg-white rounded-lg shadow-lg">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-blue-700">
+      <div className="flex flex-col items-center w-full max-w-lg px-8 py-12 bg-white rounded-lg shadow-lg">
         <h1 className="text-3xl font-extrabold text-blue-900 mb-8 text-center">
           Student Login
         </h1>
 
         {/* Login Form */}
-        <form className="w-full space-y-6" onSubmit={handleLogin}>
+        <form className="w-full space-y-6">
           <div>
             <label htmlFor="email" className="block text-lg font-medium text-gray-700">
               Email
@@ -47,19 +37,19 @@ const StudentLogin = () => {
               placeholder="Enter your password"
             />
           </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full py-3 px-6 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105"
-          >
-            Login
-          </button>
         </form>
+
+        {/* Blue Login Button */}
+        <a
+          href="/studentsdashboard"
+          className="w-full py-3 px-6 mt-10 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 block text-center"
+        >
+          Login
+        </a>
 
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600">
-            Forgot your password?{" "}
+            Forgot your password?{' '}
             <a href="#" className="text-blue-600 hover:text-blue-700">
               Reset it here
             </a>
