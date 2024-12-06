@@ -41,7 +41,7 @@ const StudentLogin = () => {
 
         {/* Blue Login Button */}
         <a
-          href="/studentsdashboard"
+          href="/studentdashboard"
           className="w-full py-3 px-6 mt-10 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 block text-center"
         >
           Login
