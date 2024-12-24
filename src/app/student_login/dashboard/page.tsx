@@ -33,7 +33,7 @@ const Dashboard = () => {
       <div className="flex-1 p-6 bg-gray-100">
         {/* Header */}
         <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-green-900">Parent Dashboard</h1>
+          <h1 className="text-4xl font-bold text-green-900">Student Dashboard</h1>
           <p className="mt-2 text-lg text-gray-600">Overview of your child's academic performance and activities</p>
         </header>
 
