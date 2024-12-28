@@ -4,12 +4,14 @@ import Link from 'next/link';
 
 const ChoicePage = () => {
   return (
-    <div className="flex justify-center flex-col items-center min-h-screen bg-gray-50">
-      <h1 className="text-3xl lg:text-4xl font-extrabold text-black mb-10">
-                        Welcome to the School Management System
-                    </h1>
+    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50">
+      {/* Title */}
+      <h1 className="text-3xl lg:text-4xl font-extrabold text-black mb-10 text-center px-4">
+      Welcome to the M.P.C.A.R. Student Management System
+      </h1>
+
       <div className="flex flex-col items-center w-full max-w-lg px-8 py-12 bg-white rounded-lg shadow-lg">
-        {/* Title */}
+        {/* Subtitle */}
         <h1 className="text-4xl font-extrabold text-blue-900 mb-8 text-center">
           Select Your Role
         </h1>

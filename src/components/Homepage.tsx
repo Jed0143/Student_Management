@@ -21,7 +21,7 @@ const Homepage = () => {
                 {/* Right Side: Content */}
                 <div className="w-full lg:w-1/2 p-6 bg-white rounded-lg shadow-lg flex flex-col items-center text-center">
                     <h1 className="text-3xl lg:text-4xl font-extrabold text-blue-900 mb-4">
-                        Welcome to the School Management System
+                        Welcome to the M.P.C.A.R. Student Management System
                     </h1>
                     <p className="text-lg text-blue-700 mb-8 lg:mb-12 px-4">
                         Streamline school management, class organization, and add students and faculty.
