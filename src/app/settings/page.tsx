@@ -1,5 +1,5 @@
 // pages/management-student.js
-import React from 'react';
+import React from "react";
 import Sidebar from "@/components/Sidebar";
 
 const ManageStudents = () => {
