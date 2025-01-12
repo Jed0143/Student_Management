@@ -1,10 +1,19 @@
-"use client"; // Add this at the top of your file
+"use client";
 
 import React, { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 
-const ManageStudents = () => {
-  const [students, setStudents] = useState([
+interface Student {
+  id: number;
+  name: string;
+  schedule: string;
+  age: number | string;
+  email: string;
+  address: string;
+}
+
+const ManageStudents: React.FC = () => {
+  const [students, setStudents] = useState<Student[]>([
     {
       id: 1,
       name: "Joherlelr",
@@ -39,7 +48,8 @@ const ManageStudents = () => {
     },
   ]);
 
-  const [newStudent, setNewStudent] = useState({
+  const [newStudent, setNewStudent] = useState<Student>({
+    id: 0,
     name: "",
     schedule: "",
     age: "",
@@ -47,56 +57,56 @@ const ManageStudents = () => {
     address: "",
   });
 
-  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState<number | null>(null);
 
-  // Handle input changes and update the corresponding state property
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;  // Destructure name and value from event target
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
     setNewStudent((prevState) => ({
-      ...prevState,  // Preserve the previous state values
-      [name]: value,  // Update only the property that changed
+      ...prevState,
+      [name]: value,
     }));
   };
 
-  // Add new student
   const handleAddStudent = () => {
     if (newStudent.name && newStudent.schedule) {
-      setStudents([...students, { id: Date.now(), ...newStudent }]);
-      setNewStudent({ name: "", schedule: "", age: "", email: "", address: "" });
+      setStudents([
+        ...students,
+        { ...newStudent, id: Date.now(), age: Number(newStudent.age) },
+      ]);
+      setNewStudent({ id: 0, name: "", schedule: "", age: "", email: "", address: "" });
     }
   };
 
-  // Edit an existing student
-  const handleEditStudent = (index) => {
+  const handleEditStudent = (index: number) => {
     setNewStudent(students[index]);
     setSelectedStudent(index);
   };
 
-  // Update student information
   const handleUpdateStudent = () => {
-    const updatedStudents = students.map((student, index) =>
-      index === selectedStudent ? { ...student, ...newStudent } : student
-    );
-    setStudents(updatedStudents);
-    setNewStudent({ name: "", schedule: "", age: "", email: "", address: "" });
-    setSelectedStudent(null);
+    if (selectedStudent !== null) {
+      const updatedStudents = students.map((student, index) =>
+        index === selectedStudent ? { ...student, ...newStudent, age: Number(newStudent.age) } : student
+      );
+      setStudents(updatedStudents);
+      setNewStudent({ id: 0, name: "", schedule: "", age: "", email: "", address: "" });
+      setSelectedStudent(null);
+    }
   };
 
-  // Delete a student
-  const handleDeleteStudent = (index) => {
+  const handleDeleteStudent = (index: number) => {
     const updatedStudents = students.filter((_, i) => i !== index);
     setStudents(updatedStudents);
   };
 
-  // View student details
-  const handleViewDetails = (index) => {
+  const handleViewDetails = (index: number) => {
     setSelectedStudent(index);
   };
 
-  // Group students by schedule
-  const groupedStudents = students.reduce((groups, student) => {
-    const schedule = student.schedule?.trim();  // Ensure schedule is trimmed and non-empty
-    if (!schedule) return groups;  // Skip if schedule is empty or invalid
+  const groupedStudents = students.reduce<Record<string, Student[]>>((groups, student) => {
+    const schedule = student.schedule.trim();
+    if (!schedule) return groups;
 
     if (!groups[schedule]) {
       groups[schedule] = [];
@@ -258,7 +268,7 @@ const ManageStudents = () => {
           )}
           <button
             onClick={() => {
-              setNewStudent({ name: "", schedule: "", age: "", email: "", address: "" });
+              setNewStudent({ id: 0, name: "", schedule: "", age: "", email: "", address: "" });
               setSelectedStudent(null);
             }}
             className="bg-gray-500 text-white px-4 py-2 rounded-lg"
