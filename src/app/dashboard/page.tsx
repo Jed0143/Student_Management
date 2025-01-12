@@ -44,7 +44,7 @@ const Dashboard = () => {
             </div>
             <div>
               <h3 className="font-medium text-gray-600">Class-Specific Update:</h3>
-              <p className="text-lg text-gray-800">Class 10A&apos;s project submission deadline is extended by 2 days.</p>
+              <p className="text-lg text-gray-800">Class 10A project submission deadline is extended by 2 days.</p>
             </div>
           </div>
         </div>
