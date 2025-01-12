@@ -63,7 +63,7 @@ const Dashboard = () => {
             </li>
             <li>
               <h3 className="font-medium text-gray-600">Upcoming Events:</h3>
-              <p className="text-lg text-gray-800">Sports Day - March 25th, 2024.</p>
+              <p className="text-lg text-gray-800">Sports Day - March 25th 2024.</p>
             </li>
           </ul>
         </div>
