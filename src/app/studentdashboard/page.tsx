@@ -34,7 +34,7 @@ const Dashboard = () => {
         {/* Header */}
         <header className="text-center mb-12">
           <h1 className="text-4xl font-bold text-blue-900">Parent Dashboard</h1>
-          <p className="mt-2 text-lg text-gray-600">Overview of your child's academic performance and activities</p>
+          <p className="mt-2 text-lg text-gray-600">Overview of your childs academic performance and activities</p>
         </header>
 
         {/* Child Overview Section */}
