@@ -119,7 +119,7 @@ const ManageStudents: React.FC = () => {
       <Sidebar />
 
       <header className="text-center mb-12">
-        <h3 className="text-8xl font-bold">Manage your Students</h3>
+        <h1 className="text-4xl font-bold">Manage your Students</h1>
       </header>
 
       {Object.keys(groupedStudents).length > 0 ? (
