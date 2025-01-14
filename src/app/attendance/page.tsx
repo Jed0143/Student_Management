@@ -3,9 +3,17 @@
 import React, { useState } from "react";
 import Sidebar from "@/components/Sidebar"; // Optional, include if you use a Sidebar
 
+// Define a Student interface for better type safety
+interface Student {
+  id: number;
+  name: string;
+  present: boolean;
+  note: string;
+}
+
 const AttendanceManager = () => {
   // Mock student data
-  const [students, setStudents] = useState([
+  const [students, setStudents] = useState<Student[]>([
     { id: 1, name: "Joherlelr", present: false, note: "" },
     { id: 2, name: "Janfdfdwe", present: false, note: "" },
     { id: 3, name: "Alice", present: false, note: "" },
@@ -15,7 +23,7 @@ const AttendanceManager = () => {
   const [showReport, setShowReport] = useState(false);
 
   // Handle marking attendance for a specific student
-  const toggleAttendance = (studentId) => {
+  const toggleAttendance = (studentId: number) => {
     setStudents((prevStudents) =>
       prevStudents.map((student) =>
         student.id === studentId
@@ -26,7 +34,7 @@ const AttendanceManager = () => {
   };
 
   // Handle adding notes for absences
-  const handleNoteChange = (studentId, note) => {
+  const handleNoteChange = (studentId: number, note: string) => {
     setStudents((prevStudents) =>
       prevStudents.map((student) =>
         student.id === studentId ? { ...student, note } : student
