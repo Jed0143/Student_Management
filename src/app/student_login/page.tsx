@@ -2,7 +2,7 @@ import React from 'react';
 
 const StudentLogin = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-blue-700">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-900 to-blue-700">
       <div className="flex flex-col items-center w-full max-w-lg px-8 py-12 bg-white rounded-lg shadow-lg">
         <h1 className="text-3xl font-extrabold text-blue-900 mb-8 text-center">
           Student Login

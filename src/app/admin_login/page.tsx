@@ -3,17 +3,17 @@ import React from 'react';
 
 const AdminLogin = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen  bg-green-200">
+    <div className="flex justify-center items-center min-h-screen  bg-blue-900">
       {/* Back Button */}
       <a
         href="/"
-        className="absolute top-4 right-4 px-4 py-2 bg-green-600 text-white font-medium rounded-lg shadow-md hover:bg-green-700 transition duration-300 ease-in-out"
+        className="absolute top-4 right-4 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out"
       >
         Back
       </a>
 
       <div className="flex flex-col items-center w-full max-w-lg px-8 py-12 bg-white rounded-lg shadow-lg">
-        <h1 className="text-3xl font-extrabold text-green-900 mb-8 text-center">
+        <h1 className="text-3xl font-extrabold text-blue-900 mb-8 text-center">
           Admin Login
         </h1>
 
@@ -57,7 +57,7 @@ const AdminLogin = () => {
         {/* Login Button */}
         <a
           href="/dashboard"
-          className="w-full py-3 px-6 mt-10 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition duration-300 ease-in-out transform hover:scale-105 block text-center"
+          className="w-full py-3 px-6 mt-10 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 block text-center"
         >
           Login
         </a>
