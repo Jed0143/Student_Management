@@ -55,7 +55,7 @@ const AttendanceManager = () => {
         <div className="overflow-x-auto">
           <table className="table-auto w-full border-collapse border border-gray-300">
             <thead>
-              <tr className="bg-gray-200">
+              <tr className="bg-blue-900 text-white">
                 <th className="border border-gray-300 px-4 py-2">Name</th>
                 <th className="border border-gray-300 px-4 py-2">Present</th>
                 <th className="border border-gray-300 px-4 py-2">Notes</th>
@@ -104,7 +104,7 @@ const AttendanceManager = () => {
             <h2 className="text-2xl font-bold mb-4">Attendance Report</h2>
             <table className="table-auto w-full border-collapse border border-gray-300">
               <thead>
-                <tr className="bg-gray-200">
+                <tr className="bg-blue-900 text-white">
                   <th className="border border-gray-300 px-4 py-2">Name</th>
                   <th className="border border-gray-300 px-4 py-2">Attendance</th>
                   <th className="border border-gray-300 px-4 py-2">Notes</th>

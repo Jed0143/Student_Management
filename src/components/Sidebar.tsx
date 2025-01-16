@@ -57,11 +57,6 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/reports" className="text-lg text-white hover:text-blue-300">
-                  Reports
-                </Link>
-              </li>
-              <li>
                 <Link href="/settings" className="text-lg text-white hover:text-blue-300">
                   Settings
                 </Link>
