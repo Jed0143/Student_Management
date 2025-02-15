@@ -73,7 +73,7 @@ const EmailVerification = () => {
         </button>
 
         <p className="mt-4 text-sm text-gray-600">
-          Didn't receive code?{" "}
+          Didn&apos;t receive code?{" "}
           <button
             onClick={handleResend}
             className="text-blue-600 hover:text-blue-700 font-medium"
