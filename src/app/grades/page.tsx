@@ -12,7 +12,7 @@ type Grade = {
 
 const Grades = () => {
   const [grades, setGrades] = useState<Grade[]>([]);
-  const [newGrade, setNewGrade] = useState<Grade>({ id: 0, student: "", subject: "", grade: "" });
+  const [newGrade, setNewGrade] = useState<Omit<Grade, "id">>({ student: "", subject: "", grade: "" });
 
   useEffect(() => {
     setGrades([
@@ -27,17 +27,14 @@ const Grades = () => {
 
   const handleAddGrade = () => {
     if (newGrade.student && newGrade.subject && newGrade.grade) {
-      setGrades((prevGrades) => [
-        ...prevGrades,
-        { id: prevGrades.length > 0 ? prevGrades[prevGrades.length - 1].id + 1 : 1, ...newGrade },
-      ]);
-      setNewGrade({ id: 0, student: "", subject: "", grade: "" });
+      const newId = grades.length > 0 ? grades[grades.length - 1].id + 1 : 1;
+      setGrades((prevGrades) => [...prevGrades, { id: newId, ...newGrade }]);
+      setNewGrade({ student: "", subject: "", grade: "" }); // No 'id' here
     }
   };
 
   return (
     <div className="flex">
-      {/* Sidebar */}
       <Sidebar />
       <div className="p-6 w-full">
         <h1 className="text-2xl font-bold mb-4">Grades Management</h1>
