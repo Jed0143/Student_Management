@@ -170,7 +170,7 @@ const PreEnrollment = () => {
           <p className="text-1xl font-extrabold text-red-500 mb-8 text-start">MOTHER:</p>
           <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
             <div>
-              <label className="block font-semibold">Mother's Name</label>
+              <label className="block font-semibold">Mother Name</label>
               <input type="text" name="motherName" className="w-full p-2 border rounded" value={formData.motherName} onChange={handleChange} required />
             </div>
             <div>
@@ -178,7 +178,7 @@ const PreEnrollment = () => {
               <input type="text" name="motherContact" className="w-full p-2 border rounded" value={formData.motherContact} onChange={handleChange} required />
             </div>
             <div>
-              <label className="block font-semibold">Mother's Work</label>
+              <label className="block font-semibold">Mother Work</label>
               <input type="text" name="motherWork" className="w-full p-2 border rounded" value={formData.motherWork} onChange={handleChange} required />
             </div>
           </div>
@@ -186,7 +186,7 @@ const PreEnrollment = () => {
           <p className="text-1xl font-extrabold text-red-500 mb-8 text-start">FATHER:</p>
           <div className="grid grid-cols-1 md-grid-cols-2 gap-6">
             <div>
-              <label className="block font-semibold">Father's Name</label>
+              <label className="block font-semibold">Father Name</label>
               <input type="text" name="fatherName" className="w-full p-2 border rounded" value={formData.fatherName} onChange={handleChange} required />
             </div>
             <div>
@@ -194,7 +194,7 @@ const PreEnrollment = () => {
               <input type="text" name="fatherContact" className="w-full p-2 border rounded" value={formData.fatherContact} onChange={handleChange} required />
             </div>
             <div>
-              <label className="block font-semibold">Father's Work</label>
+              <label className="block font-semibold">Father Work</label>
               <input type="text" name="fatherWork" className="w-full p-2 border rounded" value={formData.fatherWork} onChange={handleChange} required />
             </div>
           </div>
