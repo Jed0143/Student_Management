@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "@/components/studendsidebar";
+import StudentSidebar from "@/components/studentsidebar";
 
 const Dashboard = () => {
   // Example data for children (this can be dynamic based on the actual data)
@@ -26,11 +26,11 @@ const Dashboard = () => {
 
   return (
     <div className="flex">
-      {/* Sidebar */}
-      <Sidebar />
+      {/* StudentSidebar */}
+      <StudentSidebar />
 
       {/* Main Content */}
-      <div className="flex-1 p-6 bg-gray-100">
+      <div className="flex-1 p-6 bg-blue-200">
         {/* Header */}
         <header className="text-center mb-12">
           <h1 className="text-4xl font-bold text-blue-900">Parent Dashboard</h1>

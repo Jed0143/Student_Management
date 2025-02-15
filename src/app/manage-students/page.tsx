@@ -56,17 +56,46 @@ const ManageStudents: React.FC = () => {
     address: "",
   });
 
-  const [selectedStudent, setSelectedStudent] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNewStudent((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
+
+  const [editingStudent, setEditingStudent] = useState<Student | null>(null);
+
+// Edit Student Function
+const handleEditStudent = (student: Student) => {
+  setEditingStudent(student);
+  setIsModalOpen(true);
+};
+
+// Save Edited Student Function
+const handleSaveEditedStudent = () => {
+  setStudents((prevStudents) =>
+    prevStudents.map((s) => (s.id === editingStudent?.id ? editingStudent : s))
+  );
+  setEditingStudent(null);
+  setIsModalOpen(false);
+};
+
+// Delete Student Function
+const handleDeleteStudent = (id: number) => {
+  setStudents((prevStudents) => prevStudents.filter((s) => s.id !== id));
+};
+
+// Update input fields in the modal
+const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const { name, value } = e.target;
+  if (editingStudent) {
+    setEditingStudent({ ...editingStudent, [name]: value });
+  }
+};
+
 
   const handleAddStudent = () => {
     if (newStudent.name && newStudent.schedule) {
@@ -75,32 +104,8 @@ const ManageStudents: React.FC = () => {
         { ...newStudent, id: Date.now(), age: Number(newStudent.age) },
       ]);
       setNewStudent({ id: 0, name: "", schedule: "", age: "", email: "", address: "" });
+      setIsModalOpen(false);
     }
-  };
-
-  const handleEditStudent = (index: number) => {
-    setNewStudent(students[index]);
-    setSelectedStudent(index);
-  };
-
-  const handleUpdateStudent = () => {
-    if (selectedStudent !== null) {
-      const updatedStudents = students.map((student, index) =>
-        index === selectedStudent ? { ...student, ...newStudent, age: Number(newStudent.age) } : student
-      );
-      setStudents(updatedStudents);
-      setNewStudent({ id: 0, name: "", schedule: "", age: "", email: "", address: "" });
-      setSelectedStudent(null);
-    }
-  };
-
-  const handleDeleteStudent = (index: number) => {
-    const updatedStudents = students.filter((_, i) => i !== index);
-    setStudents(updatedStudents);
-  };
-
-  const handleViewDetails = (index: number) => {
-    setSelectedStudent(index);
   };
 
   const groupedStudents = students.reduce<Record<string, Student[]>>((groups, student) => {
@@ -115,61 +120,143 @@ const ManageStudents: React.FC = () => {
   }, {});
 
   return (
-    <div className="p-6">
+    <div className="flex">
       <Sidebar />
 
-      <header className="text-center mb-12">
-        <h1 className="text-4xl font-bold">Manage your Students</h1>
-      </header>
+      <div className="p-6 flex-1">
+        <header className="text-center mt-10 mb-6">
+          <h1 className="text-4xl font-bold">Manage Your Students</h1>
+        </header>
 
-      {Object.keys(groupedStudents).length > 0 ? (
-        Object.keys(groupedStudents).map((schedule) => (
-          <div key={schedule} className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">Schedule: {schedule}</h2>
-            <div className="overflow-x-auto">
-              <table className="table-auto w-full border-collapse border border-gray-300">
-                <thead>
-                  <tr className="bg-blue-900 text-white">
-                    <th className="border border-gray-300 px-4 py-2">Name</th>
-                    <th className="border border-gray-300 px-4 py-2">Actions</th>
+        {/* Student List Table */}
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold mb-4">Student List</h2>
+          <div className="overflow-x-auto">
+            <table className="table-auto w-full border-collapse border border-gray-300">
+              <thead>
+                <tr className="bg-blue-900 text-white">
+                  <th className="border border-gray-300 px-4 py-2">Name</th>
+                  <th className="border border-gray-300 px-4 py-2">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {students.map((student) => (
+                  <tr key={student.id} className="text-center">
+                    <td className="border border-gray-300 px-4 py-2">{student.name}</td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      <button className="text-green-500 mr-2">View Details</button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {groupedStudents[schedule].map((student, index) => (
-                    <tr key={student.id} className="text-center">
-                      <td className="border border-gray-300 px-4 py-2">{student.name}</td>
-                      <td className="border border-gray-300 px-4 py-2">
-                        <button
-                          className="text-green-500 mr-2"
-                          onClick={() => handleViewDetails(index)}
-                        >
-                          View Details
-                        </button>
-                        <button
-                          className="text-blue-500 mr-2"
-                          onClick={() => handleEditStudent(index)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="text-red-500"
-                          onClick={() => handleDeleteStudent(index)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Add Student Button */}
+        <div className="mt-8 mb-8 flex justify-start">
+          <button
+            className="bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-green-700 transition duration-300"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Add Student
+          </button>
+        </div>
+
+        {/* Add Student Modal */}
+        {isModalOpen && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h2 className="text-xl font-semibold mb-4">
+        {editingStudent ? "Edit Student" : "Add Student"}
+      </h2>
+
+      {/* Student Name Dropdown */}
+      <select
+        name="name"
+        value={editingStudent ? editingStudent.name : newStudent.name}
+        onChange={editingStudent ? handleEditInputChange : handleInputChange}
+        className="w-full p-2 border rounded mb-2"
+      >
+        <option value="">Select Student Name</option>
+        {students.map((student) => (
+          <option key={student.id} value={student.name}>
+            {student.name}
+          </option>
+        ))}
+      </select>
+
+      {/* Schedule Dropdown */}
+      <select
+        name="schedule"
+        value={editingStudent ? editingStudent.schedule : newStudent.schedule}
+        onChange={editingStudent ? handleEditInputChange : handleInputChange}
+        className="w-full p-2 border rounded mb-4"
+      >
+        <option value="">Select Schedule</option>
+        {Array.from(new Set(students.map((student) => student.schedule))).map(
+          (schedule) => (
+            <option key={schedule} value={schedule}>
+              {schedule}
+            </option>
+          )
+        )}
+      </select>
+
+      <div className="flex justify-end space-x-4">
+        <button
+          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+          onClick={() => {
+            setIsModalOpen(false);
+            setEditingStudent(null);
+          }}
+          >
+            Cancel
+                </button>
+                  <button
+                    className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                    onClick={editingStudent ? handleSaveEditedStudent : handleAddStudent}
+                  >
+                  {editingStudent ? "Save Changes" : "Add Student"}
+                </button>
+              </div>
             </div>
           </div>
-        ))
-      ) : (
-        <p>No students available for the given schedules.</p>
-      )}
+        )}
 
-      {/* Remaining code for details and adding/updating students remains the same */}
+
+        {/* Grouped Students by Schedule */}
+        {Object.keys(groupedStudents).length > 0 ? (
+          Object.keys(groupedStudents).map((schedule) => (
+            <div key={schedule} className="mb-8">
+              <h2 className="text-2xl font-bold mb-4">Schedule: {schedule}</h2>
+              <div className="overflow-x-auto">
+                <table className="table-auto w-full border-collapse border border-gray-300">
+                  <thead>
+                    <tr className="bg-blue-900 text-white">
+                      <th className="border border-gray-300 px-4 py-2">Name</th>
+                      <th className="border border-gray-300 px-4 py-2">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {groupedStudents[schedule].map((student) => (
+                      <tr key={student.id} className="text-center">
+                        <td className="border border-gray-300 px-4 py-2">{student.name}</td>
+                        <td className="border border-gray-300 px-4 py-2">
+                            <button className="text-blue-500 mr-2" onClick={() => handleEditStudent(student)}>Edit</button>
+                             <button className="text-red-500" onClick={() => handleDeleteStudent(student.id)}>Delete</button>
+                            </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-center mt-4 text-gray-600">No students available for the given schedules.</p>
+        )}
+      </div>
     </div>
   );
 };

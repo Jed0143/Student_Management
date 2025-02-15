@@ -9,8 +9,8 @@ const Homepage = () => {
                 {/* Left Side: Image */}
                 <div className="w-full lg:w-1/2 mb-8 lg:mb-0 relative">
                     <Image
-                        src="/download.svg"
-                        alt="download"
+                        src="/cd.svg"
+                        alt="cd"
                         layout="responsive" // Makes the image responsive
                         width={500} // Define the natural width of the image
                         height={300} // Define the natural height of the image
@@ -32,7 +32,7 @@ const Homepage = () => {
                     </p>
                     <div className="flex flex-col items-center gap-6 mb-16">
                         {/* Login Button */}
-                        <Link href="/choice">
+                        <Link href="/login">
                             <button className="w-full py-3 px-6 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-500 transition duration-300 ease-in-out transform hover:scale-105">
                                 Login
                             </button>

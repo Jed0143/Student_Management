@@ -1,133 +1,162 @@
-"use client"; // Add this at the top if using Next.js
-
+"use client";
 import React, { useState } from "react";
-import Sidebar from "@/components/Sidebar"; // Optional, include if you use a Sidebar
+import Sidebar from "@/components/Sidebar";
 
-// Define a Student interface for better type safety
 interface Student {
   id: number;
   name: string;
   present: boolean;
   note: string;
+  schedule: string;
 }
 
 const AttendanceManager = () => {
-  // Mock student data
   const [students, setStudents] = useState<Student[]>([
-    { id: 1, name: "Joherlelr", present: false, note: "" },
-    { id: 2, name: "Janfdfdwe", present: false, note: "" },
-    { id: 3, name: "Alice", present: false, note: "" },
-    { id: 4, name: "Bob", present: false, note: "" },
+    { id: 1, name: "Joherlelr", present: false, note: "", schedule: "Morning" },
+    { id: 2, name: "Janfdfdwe", present: false, note: "", schedule: "Afternoon" },
+    { id: 3, name: "Alice", present: false, note: "", schedule: "Morning" },
+    { id: 4, name: "Bob", present: false, note: "", schedule: "Evening" },
   ]);
 
-  const [showReport, setShowReport] = useState(false);
+  const [selectedSchedule, setSelectedSchedule] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
 
-  // Handle marking attendance for a specific student
   const toggleAttendance = (studentId: number) => {
-    setStudents((prevStudents) =>
-      prevStudents.map((student) =>
-        student.id === studentId
-          ? { ...student, present: !student.present }
-          : student
+    setStudents((prev) =>
+      prev.map((student) =>
+        student.id === studentId ? { ...student, present: !student.present } : student
       )
     );
   };
 
-  // Handle adding notes for absences
   const handleNoteChange = (studentId: number, note: string) => {
-    setStudents((prevStudents) =>
-      prevStudents.map((student) =>
-        student.id === studentId ? { ...student, note } : student
-      )
+    setStudents((prev) =>
+      prev.map((student) => (student.id === studentId ? { ...student, note } : student))
     );
   };
+
+  const handleViewStudent = (student: Student) => {
+    console.log("Viewing student:", student);
+  };
+
+  const handleSaveAttendance = () => {
+    console.log("Attendance saved:", students);
+  };
+
+  const filteredStudents = selectedSchedule
+    ? students.filter((student) => student.schedule === selectedSchedule)
+    : students;
 
   return (
-    <div className="p-6">
-      <Sidebar /> {/* Include this if necessary */}
-      <header className="text-center mb-8">
-        <h1 className="text-4xl font-bold">Attendance Management</h1>
-      </header>
+    <div className="flex">
+      <Sidebar />
+      <div className="p-4 flex-1">
+        <header className="text-center mt-8 mb-8">
+          <h1 className="text-4xl font-bold">Attendance of Students</h1>
+        </header>
 
-      {/* Attendance Marking Section */}
-      <div className="mb-6">
-        <h2 className="text-2xl font-semibold mb-4">Mark Attendance</h2>
-        <div className="overflow-x-auto">
-          <table className="table-auto w-full border-collapse border border-gray-300">
-            <thead>
-              <tr className="bg-blue-900 text-white">
-                <th className="border border-gray-300 px-4 py-2">Name</th>
-                <th className="border border-gray-300 px-4 py-2">Present</th>
-                <th className="border border-gray-300 px-4 py-2">Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {students.map((student) => (
-                <tr key={student.id} className="text-center">
-                  <td className="border border-gray-300 px-4 py-2">
-                    {student.name}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    <input
-                      type="checkbox"
-                      checked={student.present}
-                      onChange={() => toggleAttendance(student.id)}
-                    />
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    <input
-                      type="text"
-                      placeholder="Add note"
-                      value={student.note}
-                      onChange={(e) => handleNoteChange(student.id, e.target.value)}
-                      className="border border-gray-300 rounded-lg p-2"
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="mb-4">
+          <label className="block text-lg font-semibold">Select Date:</label>
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            className="w-64 p-2 border rounded"
+          />
         </div>
-      </div>
 
-      {/* Attendance Reports Section */}
-      <div className="mt-6">
-        <button
-          onClick={() => setShowReport((prev) => !prev)}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-        >
-          {showReport ? "Hide Report" : "View Attendance Report"}
-        </button>
+        <div className="mb-4">
+          <label className="block text-lg font-semibold">Select Schedule:</label>
+          <select
+            className="w-64 p-2 border rounded"
+            value={selectedSchedule}
+            onChange={(e) => setSelectedSchedule(e.target.value)}
+          >
+            <option value="">Select Schedules</option>
+            {Array.from(new Set(students.map((s) => s.schedule))).map((schedule) => (
+              <option key={schedule} value={schedule}>
+                {schedule}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        {showReport && (
-          <div className="mt-6 p-4 border border-gray-300 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4">Attendance Report</h2>
-            <table className="table-auto w-full border-collapse border border-gray-300">
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold mb-4">List of Students</h2>
+          <div className="overflow-x-auto">
+            <table className="table-auto w-full border border-gray-300">
               <thead>
                 <tr className="bg-blue-900 text-white">
-                  <th className="border border-gray-300 px-4 py-2">Name</th>
-                  <th className="border border-gray-300 px-4 py-2">Attendance</th>
-                  <th className="border border-gray-300 px-4 py-2">Notes</th>
+                  <th className="border px-4 py-2">Name</th>
+                  <th className="border px-4 py-2">Schedule</th>
+                  <th className="border px-4 py-2">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {students.map((student) => (
                   <tr key={student.id} className="text-center">
-                    <td className="border border-gray-300 px-4 py-2">
-                      {student.name}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2">
-                      {student.present ? "Present" : "Absent"}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2">
-                      {student.note || "—"}
+                    <td className="border px-4 py-2">{student.name}</td>
+                    <td className="border px-4 py-2">{student.schedule}</td>
+                    <td className="border px-4 py-2">
+                      <button
+                        onClick={() => handleViewStudent(student)}
+                        className="bg-green-500 text-white px-2 py-1 rounded"
+                      >
+                        View
+                      </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        )}
+        </div>
+
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold mb-4">Mark Attendance</h2>
+          <div className="overflow-x-auto">
+            <table className="table-auto w-full border border-gray-300">
+              <thead>
+                <tr className="bg-blue-900 text-white">
+                  <th className="border px-4 py-2">Name</th>
+                  <th className="border px-4 py-2">Present</th>
+                  <th className="border px-4 py-2">Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredStudents.map((student) => (
+                  <tr key={student.id} className="text-center">
+                    <td className="border px-4 py-2">{student.name}</td>
+                    <td className="border px-4 py-2">
+                      <input
+                        type="checkbox"
+                        checked={student.present}
+                        onChange={() => toggleAttendance(student.id)}
+                      />
+                    </td>
+                    <td className="border px-4 py-2">
+                      <input
+                        type="text"
+                        placeholder="Add note"
+                        value={student.note}
+                        onChange={(e) => handleNoteChange(student.id, e.target.value)}
+                        className="border rounded p-2"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="text-center mt-4">
+            <button
+              onClick={handleSaveAttendance}
+              className="bg-blue-600 text-white px-4 py-2 rounded"
+            >
+              Save Attendance
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

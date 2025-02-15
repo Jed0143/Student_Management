@@ -1,80 +1,104 @@
-"use client"; // Add this line at the top
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Sidebar = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(true);
+  const sidebarRef = useRef(null);
+  const pathname = usePathname(); // Get current route
 
   const toggleSidebar = () => {
-    setSidebarVisible(!isSidebarVisible);
+    setSidebarVisible((prev) => !prev);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target) &&
+        isSidebarVisible
+      ) {
+        setSidebarVisible(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isSidebarVisible]);
+
+  const menuItems = [
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "Manage Students", href: "/manage-students" },
+    { name: "Attendance", href: "/attendance" },
+    { name: "Grades", href: "/grades" },
+    { name: "Communication", href: "/communication" },
+  ];
+
   return (
-    <div className="flex">
-      {/* Toggle Button */}
-      <button
-        onClick={toggleSidebar}
-        className={`p-2 m-4 bg-blue-800 text-white rounded hover:bg-blue-900 focus:outline-none fixed top-4 ${
-          isSidebarVisible ? 'left-64' : 'left-4'
-        } z-50`}
-      >
-        {isSidebarVisible ? ' < ' : ' > '}
-      </button>
-
+    <div className="flex h-screen">
       {/* Sidebar */}
-      {isSidebarVisible && (
-        <div className="w-64 bg-blue-900 text-white min-h-screen p-6 fixed top-0 left-0 flex flex-col justify-between">
-          {/* Header */}
-          <div>
-            <h2 className="text-3xl font-bold text-center text-blue-300 mb-12">Admin Panel</h2>
-
-            {/* Navigation Links */}
-            <ul className="space-y-4">
-              <li>
-                <Link href="/dashboard" className="text-lg text-white hover:text-blue-300">
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link href="/manage-students" className="text-lg text-white hover:text-blue-300">
-                  Manage Students
-                </Link>
-              </li>
-              <li>
-                <Link href="/attendance" className="text-lg text-white hover:text-blue-300">
-                  Attendance
-                </Link>
-              </li>
-              <li>
-                <Link href="/grades" className="text-lg text-white hover:text-blue-300">
-                  Grades
-                </Link>
-              </li>
-              <li>
-                <Link href="/communication" className="text-lg text-white hover:text-blue-300">
-                  Communication
-                </Link>
-              </li>
-              <li>
-                <Link href="/settings" className="text-lg text-white hover:text-blue-300">
-                  Settings
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Log Out Button */}
-          <div className="mt-12">
-            <button
-              onClick={() => alert('Logging out...')}
-              className="w-full p-2 bg-blue-700 text-white rounded hover:bg-blue-800 focus:outline-none"
-            >
-              Log Out
-            </button>
-          </div>
+      <div
+        ref={sidebarRef}
+        className={`bg-blue-900 text-white fixed top-0 left-0 h-full flex flex-col transition-all duration-300 ${
+          isSidebarVisible ? "w-64 p-4" : "w-16 p-2"
+        }`}
+      >
+        {/* Toggle Button */}
+        <div className="flex items-center p-2">
+          <button
+            onClick={toggleSidebar}
+            className="absolute top-4 left-4 p-2 bg-blue-900 rounded-3xl hover:bg-blue-700 transition-all"
+          >
+            {isSidebarVisible ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+          </button>
+          {isSidebarVisible && (
+            <h2 className="text-2xl font-bold text-blue-300 ml-10">Admin Panel</h2>
+          )}
         </div>
-      )}
+
+        {/* Navigation Menu */}
+        {isSidebarVisible && (
+          <ul className="space-y-4 mt-6">
+            {menuItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={`block p-2 rounded-lg text-lg transition-all ${
+                    pathname === item.href
+                      ? "bg-blue-700 text-white" // Active link style
+                      : "hover:bg-blue-700 hover:text-blue-300"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {/* Logout Button */}
+        {isSidebarVisible && (
+          <button
+            onClick={() => alert("Logging out...")}
+            className="w-full p-2 mt-auto bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+          >
+            Log Out
+          </button>
+        )}
+      </div>
+
+      {/* Main Content */}
+      <div
+        className={`flex-1 p-4 transition-all duration-300 ${
+          isSidebarVisible ? "ml-56" : "ml-8"
+        }`}
+      >
+        {/* Page content goes here */}
+      </div>
     </div>
   );
 };

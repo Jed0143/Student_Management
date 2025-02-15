@@ -1,51 +1,96 @@
-// pages/manage-students.js
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 
-const ManageStudents = () => {
+type Grade = {
+  id: number;
+  student: string;
+  subject: string;
+  grade: string;
+};
+
+const Grades = () => {
+  const [grades, setGrades] = useState<Grade[]>([]);
+  const [newGrade, setNewGrade] = useState<Grade>({ id: 0, student: "", subject: "", grade: "" });
+
+  useEffect(() => {
+    setGrades([
+      { id: 1, student: "John Doe", subject: "Math", grade: "A" },
+      { id: 2, student: "Jane Smith", subject: "Science", grade: "B+" },
+    ]);
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewGrade({ ...newGrade, [e.target.name]: e.target.value });
+  };
+
+  const handleAddGrade = () => {
+    if (newGrade.student && newGrade.subject && newGrade.grade) {
+      setGrades((prevGrades) => [
+        ...prevGrades,
+        { id: prevGrades.length > 0 ? prevGrades[prevGrades.length - 1].id + 1 : 1, ...newGrade },
+      ]);
+      setNewGrade({ id: 0, student: "", subject: "", grade: "" });
+    }
+  };
+
   return (
-    <div className="p-6">
+    <div className="flex">
       {/* Sidebar */}
       <Sidebar />
-
-      {/* Header */}
-      <header className="text-center mb-12">
-        <h1 className="text-8xl font-bold">Grades</h1>
-        <p className="text-4xl">Welcome to the Grading System page!</p>
-      </header>
-
-      {/* Table Section */}
-      <div className="overflow-x-auto">
-        <table className="table-auto w-full border-collapse border border-gray-300">
+      <div className="p-6 w-full">
+        <h1 className="text-2xl font-bold mb-4">Grades Management</h1>
+        <table className="w-full border-collapse border border-gray-300">
           <thead>
-            <tr className="bg-blue-900 text-white">
-              <th className="border border-gray-300 px-4 py-2">Name</th>
-              <th className="border border-gray-300 px-4 py-2">Grade</th>
+            <tr className="bg-gray-200">
+              <th className="border p-2">Student</th>
+              <th className="border p-2">Subject</th>
+              <th className="border p-2">Grade</th>
             </tr>
           </thead>
           <tbody>
-            {/* Sample rows */}
-            <tr className="text-center">
-              <td className="border border-gray-300 px-4 py-2">Joherlelr</td>
-              <td className="border border-gray-300 px-4 py-2">A</td>
-            </tr>
-            <tr className="text-center">
-              <td className="border border-gray-300 px-4 py-2">Janfdfdwe</td>
-              <td className="border border-gray-300 px-4 py-2">B</td>
-            </tr>
-            <tr className="text-center">
-              <td className="border border-gray-300 px-4 py-2">Alice</td>
-              <td className="border border-gray-300 px-4 py-2">A+</td>
-            </tr>
-            <tr className="text-center">
-              <td className="border border-gray-300 px-4 py-2">Bob</td>
-              <td className="border border-gray-300 px-4 py-2">C</td>
-            </tr>
+            {grades.map((grade) => (
+              <tr key={grade.id} className="text-center">
+                <td className="border p-2">{grade.student}</td>
+                <td className="border p-2">{grade.subject}</td>
+                <td className="border p-2">{grade.grade}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
+
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold mb-2">Add New Grade</h2>
+          <input
+            type="text"
+            name="student"
+            placeholder="Student Name"
+            value={newGrade.student}
+            onChange={handleChange}
+            className="border p-2 mr-2"
+          />
+          <input
+            type="text"
+            name="subject"
+            placeholder="Subject"
+            value={newGrade.subject}
+            onChange={handleChange}
+            className="border p-2 mr-2"
+          />
+          <input
+            type="text"
+            name="grade"
+            placeholder="Grade"
+            value={newGrade.grade}
+            onChange={handleChange}
+            className="border p-2 mr-2"
+          />
+          <button onClick={handleAddGrade} className="bg-blue-500 text-white p-2 rounded">Add</button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ManageStudents;
+export default Grades;
