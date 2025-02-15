@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Sidebar = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(true);
-  const sidebarRef = useRef(null);
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname(); // Get current route
 
   const toggleSidebar = () => {
@@ -15,10 +15,10 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         sidebarRef.current &&
-        !sidebarRef.current.contains(event.target) &&
+        !sidebarRef.current.contains(event.target as Node) &&
         isSidebarVisible
       ) {
         setSidebarVisible(false);
